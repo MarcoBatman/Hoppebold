@@ -6,7 +6,7 @@ class Ball {
   float speedy;
   PVector location = new PVector(x, y);
   PVector velocity = new PVector();
-  PVector gravity = new PVector(0.03, 0.02);
+  PVector gravity = new PVector(0, 0.18);
   float size;
   Ball() {
     location.x=0;
@@ -126,11 +126,22 @@ class Ball {
     }
   }
   void hitwall() {
-    if (location.x<0 - size/2||location.x + size/2>width) {
+    if (location.x<0 - size/2) {
       velocity.x*=-1;
+      location.x += size;
     }
-    if (location.y - size/2<0||location.y + size/2>height) {
-      velocity.y*=-1;
+    if(location.x + size/2>width){
+    velocity.x*=-1;
+    location.x -= size;
     }
+    if(location.y + size/2>height){
+    velocity.y*=-1;
+    location.y -= size;
+    }
+    if(location.y - size/2<0){
+    velocity.y*=-1;
+    location.y += size/2;
+    }
+    
   }
 }

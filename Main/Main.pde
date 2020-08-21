@@ -6,13 +6,20 @@ size(1200,600);
 img = loadImage("Clouds.jpg");
 
 }
-Ball ball1 = new Ball(500,0,20);
+ArrayList<Ball> balllist = new ArrayList<Ball>();
 void draw(){
 clear();
-image(img, 0, 0);      //background
-
+background(img);      //background
+for(int i=0;i<balllist.size();i++){
   
 
-ball1.drawball();
-ball1.update();
+balllist.get(i).drawball();
+balllist.get(i).update();
+}
+}
+
+void mousePressed(){
+balllist.add(new Ball(mouseX,69,20));
+
+
 }

@@ -29,6 +29,15 @@ void update(){
   location.add(velocity);
   
 }
+boolean hit(Ball otherball){
+        float afstandMin = size;
+        float afstand = dist(location.x,location.y,otherball.location.x,otherball.location.y);
+        if(afstand < afstandMin){
+            return true;
+        }
+        else{
+            return false;
+        }
 
-
+}
 }

@@ -1,4 +1,7 @@
 
+float ballSize=20;
+
+
 PImage img;
 
 void setup(){
@@ -19,7 +22,7 @@ balllist.get(i).update();
 }
 
 void mousePressed(){
-balllist.add(new Ball(mouseX,69,20));
+balllist.add(new Ball(mouseX,round(random(ballSize/2,130-(ballSize/2))),ballSize));
 
 
 }

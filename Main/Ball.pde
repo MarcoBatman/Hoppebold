@@ -6,7 +6,7 @@ class Ball {
   float speedy;
   PVector location = new PVector(x, y);
   PVector velocity = new PVector();
-  PVector gravity = new PVector(0, 0.18);
+  PVector gravity = new PVector(0, 0.2);
   float size;
   Ball() {
     location.x=0;
@@ -129,19 +129,57 @@ class Ball {
     if (location.x<0 - size/2) {
       velocity.x*=-1;
       location.x += size;
+      quickCalc();
     }
-    if(location.x + size/2>width){
-    velocity.x*=-1;
-    location.x -= size;
+    if (location.x + size/2>width) {
+      velocity.x*=-1;
+      location.x -= size;
+      quickCalc();
     }
-    if(location.y + size/2>height){
-    velocity.y*=-1;
-    location.y -= size;
+    if (location.y + size/2>height) {
+      velocity.y*=-1;
+      location.y = height-size/2;
+      quickCalc();
     }
-    if(location.y - size/2<0){
-    velocity.y*=-1;
-    location.y += size/2;
+    if (location.y - size/2<0) {
+      velocity.y*=-1;
+      location.y += size/2;
+      quickCalc();
     }
-    
+  }
+  void quickCalc()
+  {
+    if (velocity.x > 0)
+    {
+      velocity.x -= 1;
+      if (velocity.x < 0)
+      {
+        velocity.x = 0;
+      }
+    }
+    if (velocity.y > 0)
+    {
+      velocity.y -= 1;
+      if (velocity.y < 0)
+      {
+        velocity.y = 0;
+      }
+    }
+    if (velocity.x < 0)
+    {
+      velocity.x += 1;
+      if (velocity.x > 0)
+      {
+        velocity.x = 0;
+      }
+    }
+    if (velocity.y < 0)
+    {
+      velocity.y += 1;
+      if (velocity.y > 0)
+      {
+        velocity.y = 0;
+      }
+    }
   }
 }

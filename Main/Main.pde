@@ -1,15 +1,19 @@
-float ballSize=20;
-Cloud Cloud = new Cloud();
+float ballSize=10;
+//Cloud Cloud = new Cloud();
 //The X and Y cordinates for a cloud
 int[] cloudX = { 200, 700, 1000, 400, 450};
 int[] cloudY = { 250, 300, 350, 500, 200};
+boolean oneBall = false;
 
 void setup() {
   size(1200, 600);
   //frameRate(15);
-}
+  for(int i =0;i<cloud.length;i++)
+  cloud[i] = new Cloud(cloudX[i]+40, cloudY[i],cloudX[i]+20, cloudY[i]-30,cloudX[i], cloudY[i]);
+  }
+  
 ArrayList<Ball> balllist = new ArrayList<Ball>();
-
+Cloud[] cloud = new Cloud[5];
 
 void draw() {
   clear();
@@ -20,27 +24,32 @@ void draw() {
   //informs how you erase all the balls
   text("Click R to erase all the balls", 10, 30);
   fill(1,1, 255);
-
-  //Makes all the clouds at the given X and Y cordinate
-  for (int i =0; i < cloudX.length; i++) {
-    noStroke();
-    Cloud.cloud(cloudX[i]+40, cloudY[i], 100, 50); 
-    Cloud.cloud(cloudX[i]+20, cloudY[i]-30, 80, 50);
-    Cloud.cloud(cloudX[i], cloudY[i], 100, 50);
-  }
   stroke(1);
-
   for (int i=0; i<balllist.size(); i++) { 
-    balllist.get(i).drawball();
+    balllist.get(i).rotated = false;
+    
     for (int j=0; j<balllist.size(); j++) {
-      balllist.get(i).checkCollision(balllist.get(j));
+      if(balllist.get(i).hit(balllist.get(j) )&& i != j){
+        balllist.get(i).velocity.rotate(PI-balllist.get(i).angel);
+      }
+    }
+    for (int j=0; j<cloudX.length; j++) {
+     if( balllist.get(i).hitcloud(cloud[j])){
+     balllist.get(i).velocity.rotate(PI-balllist.get(i).angel); 
+     }
     }
     balllist.get(i).hitwall();
     balllist.get(i).update();
+    balllist.get(i).drawball();
   }
+  //Makes all the clouds at the given X and Y cordinate
+  for(int i =0;i<cloud.length;i++){
+  cloud[i].cloud();
+  }
+  println(balllist.size());
 }
 void mousePressed() {
-  balllist.add(new Ball(mouseX, mouseY, ballSize));
+ balllist.add(new Ball(mouseX, mouseY, ballSize));
 }
 void keyPressed()
 {
